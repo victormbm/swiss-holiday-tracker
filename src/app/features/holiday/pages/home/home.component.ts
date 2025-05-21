@@ -29,6 +29,33 @@ export class HomeComponent {
 constructor(private holidayService: HolidayService) {}
 
 holidays: Holiday[] = [];
+currentYear = new Date().getFullYear();
+
+  years = [this.currentYear - 1, this.currentYear, this.currentYear + 1];
+  selectedCanton = 'CH-ZH';
+  selectedYear = this.currentYear
+  alreadySearched = false;
+
+
+  cantons = [
+    { code: 'CH-ZH', name: 'Zurich' },
+    { code: 'CH-GE', name: 'Geneva' },
+    { code: 'CH-BE', name: 'Bern' },
+    { code: 'CH-VD', name: 'Vaud' },
+    { code: 'CH-TI', name: 'Ticino' },
+  ];
+
+  weekdays = [
+    { label: 'Sunday', value: 0, checked: false },
+    { label: 'Monday', value: 1, checked: false },
+    { label: 'Tuesday', value: 2, checked: false },
+    { label: 'Wednesday', value: 3, checked: false },
+    { label: 'Thursday', value: 4, checked: false },
+    { label: 'Friday', value: 5, checked: false },
+    { label: 'Saturday', value: 6, checked: false },
+  ];
+
+
 
 fetchHolidays() {
   this.holidayService.getHolidays(this.selectedCanton, this.selectedYear).subscribe({
@@ -39,7 +66,8 @@ fetchHolidays() {
       });
 
       this.holidays = filtered;
-      console.log('Filtered holidays:', this.holidays);
+      this.alreadySearched = true;
+
     },
     error: (err) => {
       console.error('API error:', err);
@@ -56,28 +84,5 @@ clearAllDays() {
   this.weekdays.forEach(day => day.checked = false);
 }
 
-
-
-  cantons = [
-    { code: 'CH-ZH', name: 'Zurich' },
-    { code: 'CH-GE', name: 'Geneva' },
-    { code: 'CH-BE', name: 'Bern' },
-    { code: 'CH-VD', name: 'Vaud' },
-    { code: 'CH-TI', name: 'Ticino' },
-  ];
-
-  years = [2024, 2025, 2026];
-  selectedCanton = 'CH-ZH';
-  selectedYear = new Date().getFullYear();
-
-  weekdays = [
-    { label: 'Sunday', value: 0, checked: false },
-    { label: 'Monday', value: 1, checked: false },
-    { label: 'Tuesday', value: 2, checked: false },
-    { label: 'Wednesday', value: 3, checked: false },
-    { label: 'Thursday', value: 4, checked: false },
-    { label: 'Friday', value: 5, checked: false },
-    { label: 'Saturday', value: 6, checked: false },
-  ];
 
 }

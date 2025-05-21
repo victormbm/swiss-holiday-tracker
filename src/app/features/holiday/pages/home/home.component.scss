@@ -70,8 +70,12 @@ mat-form-field {
 
 .action-buttons {
   display: flex;
-  gap: 1rem;
-  margin: 1rem 0;
+  gap: 2rem;
+  margin: 3rem 0;
+}
+
+.no-results{
+  margin-top: 5em;
 }
 
 

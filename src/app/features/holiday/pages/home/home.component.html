@@ -39,6 +39,7 @@
   <button mat-raised-button color="primary" (click)="fetchHolidays()">
     Fetch holidays
   </button>
+
   <div *ngIf="holidays.length > 0" class="holiday-list">
   <h3>Holidays on your workdays:</h3>
   <ul>
@@ -46,6 +47,10 @@
       {{ holiday.startDate | date: 'longDate' }} - {{ holiday.name[0]?.text }}
     </li>
   </ul>
+</div>
+
+<div *ngIf="holidays.length === 0 && alreadySearched" class="no-results">
+  <p>No holidays fall on your selected workdays.</p>
 </div>
 
 </div>

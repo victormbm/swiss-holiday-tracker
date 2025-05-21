@@ -1,0 +1,35 @@
+<div class="filter-container" style="padding: 1rem;">
+  <h2>Configure your calendar</h2>
+
+  <!-- Canton -->
+  <mat-form-field appearance="outline" class="filter-item">
+    <mat-label>Select canton</mat-label>
+    <mat-select [(ngModel)]="selectedCanton">
+      <mat-option *ngFor="let canton of cantons" [value]="canton.code">
+        {{ canton.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Year -->
+  <mat-form-field appearance="outline" class="filter-item">
+    <mat-label>Select year</mat-label>
+    <mat-select [(ngModel)]="selectedYear">
+      <mat-option *ngFor="let year of years" [value]="year">
+        {{ year }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Workdays -->
+  <label style="display: block; margin: 10px 0;">Select your workdays:</label>
+  <div class="weekdays" style="display: flex; flex-wrap: wrap; gap: 8px;">
+    <mat-checkbox *ngFor="let day of weekdays" [(ngModel)]="day.checked">
+      {{ day.label }}
+    </mat-checkbox>
+  </div>
+
+  <button mat-raised-button color="primary" (click)="fetchHolidays()" style="margin-top: 20px;">
+    Fetch holidays
+  </button>
+</div>

@@ -1,5 +1,9 @@
 <div class="home-container">
-  <h2>Configure your calendar</h2>
+  <h2>
+  <img src="/swiss.png" width="24" height="16" alt="Swiss flag" style="vertical-align: middle; margin-right: 8px;" />
+  Check the holidays
+  </h2>
+
 
   <div class="form-group">
 
@@ -33,7 +37,7 @@
 
   <div class="action-buttons">
   <button mat-stroked-button color="primary" (click)="selectAllDays()">Select all workdays</button>
-  <button mat-stroked-button color="warn" (click)="clearAllDays()">Clear all workdaysworkdays</button>
+  <button mat-stroked-button color="warn" (click)="clearAllDays()">Clear all workday</button>
 </div>
 
 
@@ -50,8 +54,5 @@
   </ul>
 </div>
 
-<div *ngIf="holidays.length === 0 && alreadySearched" class="no-results">
-  <p>No holidays fall on your selected workdays.</p>
-</div>
 
 </div>

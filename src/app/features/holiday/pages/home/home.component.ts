@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { HolidayService } from '../../../../core/services/holiday.service';
 import { Holiday } from '../../../../core/models/holiday.model';
 import { Subdivision } from '../../../../core/models/subdivision.model';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -22,12 +23,13 @@ import { Subdivision } from '../../../../core/models/subdivision.model';
     MatSelectModule,
     MatCheckboxModule,
     MatButtonModule,
+    MatSnackBarModule
   ],
    providers: [HolidayService]
 })
 export class HomeComponent {
 
-constructor(private holidayService: HolidayService) {}
+constructor(private holidayService: HolidayService,private snackBar: MatSnackBar) {}
 
 cantons: { code: string; name: string }[] = [];
 
@@ -74,6 +76,15 @@ fetchHolidays() {
 
       this.holidays = filtered;
       this.alreadySearched = true;
+
+      if (filtered.length === 0) {
+        this.snackBar.open('No holidays fall on your selected workdays.', 'Close', {
+          duration: 3000,
+          panelClass: ['error-snackbar'],
+          verticalPosition: 'top'
+        });
+}
+
 
     },
     error: (err) => {

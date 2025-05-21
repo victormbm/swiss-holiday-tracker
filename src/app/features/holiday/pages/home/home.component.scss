@@ -54,3 +54,24 @@ mat-form-field {
     margin-top: 0.5rem;
   }
 }
+
+.holiday-list {
+  margin-top: 2rem;
+
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+

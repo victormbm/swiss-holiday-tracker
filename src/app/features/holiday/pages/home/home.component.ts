@@ -48,6 +48,14 @@ fetchHolidays() {
 }
 
 
+selectAllDays() {
+  this.weekdays.forEach(day => day.checked = true);
+}
+
+clearAllDays() {
+  this.weekdays.forEach(day => day.checked = false);
+}
+
 
 
   cantons = [
@@ -64,11 +72,11 @@ fetchHolidays() {
 
   weekdays = [
     { label: 'Sunday', value: 0, checked: false },
-    { label: 'Monday', value: 1, checked: true },
-    { label: 'Tuesday', value: 2, checked: true },
-    { label: 'Wednesday', value: 3, checked: true },
-    { label: 'Thursday', value: 4, checked: true },
-    { label: 'Friday', value: 5, checked: true },
+    { label: 'Monday', value: 1, checked: false },
+    { label: 'Tuesday', value: 2, checked: false },
+    { label: 'Wednesday', value: 3, checked: false },
+    { label: 'Thursday', value: 4, checked: false },
+    { label: 'Friday', value: 5, checked: false },
     { label: 'Saturday', value: 6, checked: false },
   ];
 

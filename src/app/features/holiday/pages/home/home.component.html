@@ -30,6 +30,12 @@
     </div>
   </div>
 
+  <div class="action-buttons">
+  <button mat-stroked-button color="primary" (click)="selectAllDays()">Select all</button>
+  <button mat-stroked-button color="warn" (click)="clearAllDays()">Clear all</button>
+</div>
+
+
   <button mat-raised-button color="primary" (click)="fetchHolidays()">
     Fetch holidays
   </button>

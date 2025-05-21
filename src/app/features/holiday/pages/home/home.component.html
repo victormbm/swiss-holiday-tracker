@@ -1,58 +1,57 @@
 <div class="home-container">
-  <h2>
-  <img src="/swiss.png" width="24" height="16" alt="Swiss flag" style="vertical-align: middle; margin-right: 8px;" />
-  Check the holidays
-  </h2>
+  <div class="form-wrapper">
 
+    <h2>
+      <img src="/swiss.png" width="24" height="16" alt="Swiss flag" style="vertical-align: middle; margin-right: 8px;" />
+      Check the holidays
+    </h2>
 
-  <div class="form-group">
+    <div class="form-group">
+      <mat-form-field appearance="outline">
+        <mat-label>Select the canton</mat-label>
+        <mat-select [(ngModel)]="selectedCanton">
+          <mat-option *ngFor="let canton of subdivisions" [value]="canton.code">
+            {{ canton.code }} - {{ canton.name[4].text }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Select the canton</mat-label>
-      <mat-select [(ngModel)]="selectedCanton">
-        <mat-option *ngFor="let canton of subdivisions" [value]="canton.code">
-          {{ canton.code }} - {{ canton.name[4].text }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Select year</mat-label>
-      <mat-select [(ngModel)]="selectedYear">
-        <mat-option *ngFor="let year of years" [value]="year">
-          {{ year }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-
-  <div class="weekdays-section">
-    <label>Select your workdays:</label>
-    <div class="checkbox-group">
-      <mat-checkbox *ngFor="let day of weekdays" [(ngModel)]="day.checked">
-        {{ day.label }}
-      </mat-checkbox>
+      <mat-form-field appearance="outline">
+        <mat-label>Select year</mat-label>
+        <mat-select [(ngModel)]="selectedYear">
+          <mat-option *ngFor="let year of years" [value]="year">
+            {{ year }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
+
+    <div class="weekdays-section">
+      <label>Select your workdays:</label>
+      <div class="checkbox-group">
+        <mat-checkbox *ngFor="let day of weekdays" [(ngModel)]="day.checked">
+          {{ day.label }}
+        </mat-checkbox>
+      </div>
+    </div>
+
+    <div class="action-buttons">
+      <button mat-stroked-button color="primary" (click)="selectAllDays()">Select all workdays</button>
+      <button mat-stroked-button color="warn" (click)="clearAllDays()">Clear all workdays</button>
+    </div>
+
+    <button mat-raised-button color="primary" (click)="fetchHolidays()">
+      Fetch holidays
+    </button>
+
+    <div *ngIf="holidays.length > 0" class="holiday-list">
+      <h3>Holidays on your workdays:</h3>
+      <ul>
+        <li *ngFor="let holiday of holidays">
+          {{ holiday.startDate | date: 'longDate' }} - {{ holiday.name[0]?.text }}
+        </li>
+      </ul>
+    </div>
+
   </div>
-
-  <div class="action-buttons">
-  <button mat-stroked-button color="primary" (click)="selectAllDays()">Select all workdays</button>
-  <button mat-stroked-button color="warn" (click)="clearAllDays()">Clear all workday</button>
-</div>
-
-
-  <button mat-raised-button color="primary" (click)="fetchHolidays()">
-    Fetch holidays
-  </button>
-
-  <div *ngIf="holidays.length > 0" class="holiday-list">
-  <h3>Holidays on your workdays:</h3>
-  <ul>
-    <li *ngFor="let holiday of holidays">
-      {{ holiday.startDate | date: 'longDate' }} - {{ holiday.name[0]?.text }}
-    </li>
-  </ul>
-</div>
-
-
 </div>

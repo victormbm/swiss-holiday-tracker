@@ -5,6 +5,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
+import { HolidayService } from '../../../../core/services/holiday.service';
+import { Holiday } from '../../../../core/models/holiday.model';
+
 
 @Component({
   standalone: true,
@@ -19,8 +22,34 @@ import { MatButtonModule } from '@angular/material/button';
     MatCheckboxModule,
     MatButtonModule,
   ],
+   providers: [HolidayService]
 })
 export class HomeComponent {
+
+constructor(private holidayService: HolidayService) {}
+
+holidays: Holiday[] = [];
+
+fetchHolidays() {
+  this.holidayService.getHolidays(this.selectedCanton, this.selectedYear).subscribe({
+    next: (response) => {
+      const filtered = response.filter((holiday) => {
+        const day = new Date(holiday.startDate).getDay();
+        return this.weekdays.some((w) => w.value === day && w.checked);
+      });
+
+      this.holidays = filtered;
+      console.log('Filtered holidays:', this.holidays);
+    },
+    error: (err) => {
+      console.error('API error:', err);
+    }
+  });
+}
+
+
+
+
   cantons = [
     { code: 'CH-ZH', name: 'Zurich' },
     { code: 'CH-GE', name: 'Geneva' },
@@ -43,9 +72,4 @@ export class HomeComponent {
     { label: 'Saturday', value: 6, checked: false },
   ];
 
-  fetchHolidays() {
-    console.log('Selected canton:', this.selectedCanton);
-    console.log('Selected year:', this.selectedYear);
-    console.log('Working days:', this.weekdays.filter(day => day.checked));
-  }
 }

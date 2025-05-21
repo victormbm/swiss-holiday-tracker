@@ -7,6 +7,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { HolidayService } from '../../../../core/services/holiday.service';
 import { Holiday } from '../../../../core/models/holiday.model';
+import { Subdivision } from '../../../../core/models/subdivision.model';
 
 
 @Component({
@@ -28,22 +29,29 @@ export class HomeComponent {
 
 constructor(private holidayService: HolidayService) {}
 
-holidays: Holiday[] = [];
-currentYear = new Date().getFullYear();
+cantons: { code: string; name: string }[] = [];
+
+
+  ngOnInit(): void {
+    this.holidayService.getSubdivisions('CH').subscribe({
+      next: (data) => {
+        this.subdivisions = data;
+      },
+      error: (err) => {
+        console.error('Error loading subdivisions:', err);
+      },
+    });
+  }
+
+  holidays: Holiday[] = [];
+  currentYear = new Date().getFullYear();
 
   years = [this.currentYear - 1, this.currentYear, this.currentYear + 1];
-  selectedCanton = 'CH-ZH';
+  subdivisions: Subdivision[] = [];
+  selectedCanton: string = '';
   selectedYear = this.currentYear
   alreadySearched = false;
 
-
-  cantons = [
-    { code: 'CH-ZH', name: 'Zurich' },
-    { code: 'CH-GE', name: 'Geneva' },
-    { code: 'CH-BE', name: 'Bern' },
-    { code: 'CH-VD', name: 'Vaud' },
-    { code: 'CH-TI', name: 'Ticino' },
-  ];
 
   weekdays = [
     { label: 'Sunday', value: 0, checked: false },
@@ -54,7 +62,6 @@ currentYear = new Date().getFullYear();
     { label: 'Friday', value: 5, checked: false },
     { label: 'Saturday', value: 6, checked: false },
   ];
-
 
 
 fetchHolidays() {

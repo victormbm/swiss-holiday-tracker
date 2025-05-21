@@ -2,11 +2,12 @@
   <h2>Configure your calendar</h2>
 
   <div class="form-group">
+
     <mat-form-field appearance="outline">
-      <mat-label>Select canton</mat-label>
+      <mat-label>Select the canton</mat-label>
       <mat-select [(ngModel)]="selectedCanton">
-        <mat-option *ngFor="let canton of cantons" [value]="canton.code">
-          {{ canton.name }}
+        <mat-option *ngFor="let canton of subdivisions" [value]="canton.code">
+          {{ canton.code }} - {{ canton.name[4].text }}
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -31,8 +32,8 @@
   </div>
 
   <div class="action-buttons">
-  <button mat-stroked-button color="primary" (click)="selectAllDays()">Select all</button>
-  <button mat-stroked-button color="warn" (click)="clearAllDays()">Clear all</button>
+  <button mat-stroked-button color="primary" (click)="selectAllDays()">Select all workdays</button>
+  <button mat-stroked-button color="warn" (click)="clearAllDays()">Clear all workdaysworkdays</button>
 </div>
 
 

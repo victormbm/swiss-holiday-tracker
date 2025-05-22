@@ -101,6 +101,54 @@ mat-form-field {
 }
 
 
+.calendar-export {
+  background: #fff;
+  padding: 2rem;
+  margin-top: 2rem;
+  color: #000;
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 0 0 transparent;
+  box-sizing: border-box;
+}
+
+
+.months {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.month {
+  background: #f4f4f4;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.days {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.days div {
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  font-size: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.holiday {
+  background: red;
+  color: white;
+  font-weight: bold;
+}
+
+
+
 
 
 

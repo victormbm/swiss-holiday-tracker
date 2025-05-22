@@ -9,6 +9,8 @@ import { HolidayService } from '../../../../core/services/holiday.service';
 import { Holiday } from '../../../../core/models/holiday.model';
 import { Subdivision } from '../../../../core/models/subdivision.model';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import html2canvas from 'html2canvas';
+
 
 
 @Component({
@@ -35,6 +37,7 @@ cantons: { code: string; name: string }[] = [];
 
 
   ngOnInit(): void {
+    this.generateCalendar(this.selectedYear);this.generateCalendar(this.selectedYear);
     this.holidayService.getSubdivisions('CH').subscribe({
       next: (data) => {
         this.subdivisions = data;
@@ -53,6 +56,11 @@ cantons: { code: string; name: string }[] = [];
   selectedCanton: string = '';
   selectedYear = this.currentYear
   alreadySearched = false;
+  calendarMonths: {
+  name: string;
+  days: { date: number; fullDate: string }[];
+}[] = [];
+
 
 
   weekdays = [
@@ -64,6 +72,40 @@ cantons: { code: string; name: string }[] = [];
     { label: 'Friday', value: 5, checked: false },
     { label: 'Saturday', value: 6, checked: false },
   ];
+
+  generateCalendar(year: number) {
+  const monthNames = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+
+  this.calendarMonths = monthNames.map((name, i) => {
+    const daysInMonth = new Date(year, i + 1, 0).getDate();
+    return {
+      name,
+      days: Array.from({ length: daysInMonth }, (_, d) => {
+        const fullDate = `${year}-${String(i + 1).padStart(2, '0')}-${String(d + 1).padStart(2, '0')}`;
+        return { date: d + 1, fullDate };
+      })
+    };
+  });
+}
+
+isHolidayDate(fullDate: string): boolean {
+  return this.holidays.some(h => h.startDate.startsWith(fullDate));
+}
+
+downloadCalendarAsImage() {
+  const el = document.getElementById('calendar-image');
+  if (!el) return;
+
+  html2canvas(el).then(canvas => {
+    const link = document.createElement('a');
+    link.href = canvas.toDataURL('image/png');
+    link.download = `calendar-${this.selectedCanton}-${this.selectedYear}.png`;
+    link.click();
+  });
+}
 
 
 fetchHolidays() {

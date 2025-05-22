@@ -54,7 +54,11 @@
     </div>
 
       <div id="calendar-image" class="calendar-export">
-      <h2>{{ selectedYear }} Calendar - {{ selectedCanton }}</h2>
+        <h2>
+          {{ selectedYear }} Calendar -
+          {{ alreadySearched ? (selectedCanton || 'All cantons') : '' }}
+        </h2>
+
 
       <div class="months">
         <div *ngFor="let month of calendarMonths" class="month">

@@ -59,7 +59,7 @@ cantons: { code: string; name: string }[] = [];
   calendarMonths: {
   name: string;
   days: { date: number; fullDate: string }[];
-}[] = [];
+  }[] = [];
 
 
 
@@ -91,8 +91,11 @@ cantons: { code: string; name: string }[] = [];
   });
 }
 
-isHolidayDate(fullDate: string): boolean {
-  return this.holidays.some(h => h.startDate.startsWith(fullDate));
+isHolidayDate(date: string): boolean {
+  return this.holidays.some(h => {
+    const holidayDate = h.startDate?.split('T')[0];
+    return holidayDate === date;
+  });
 }
 
 downloadCalendarAsImage() {
@@ -118,6 +121,9 @@ fetchHolidays() {
 
       this.holidays = filtered;
       this.alreadySearched = true;
+
+      this.generateCalendar(this.selectedYear);
+
 
       if (filtered.length === 0) {
         this.snackBar.open('No holidays fall on your selected workdays.', 'Close', {
